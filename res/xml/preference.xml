@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  <PreferenceCategory
+            android:title="Einstellungen">
+
+		<EditTextPreference
+				android:title="IP Adresse"
+				android:summary="IP Adresse des OMSI PCs" android:key="@+id/ip" android:enabled="true"/>
+    </PreferenceCategory>
+</PreferenceScreen>
