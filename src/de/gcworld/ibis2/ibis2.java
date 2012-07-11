@@ -450,8 +450,8 @@ public class ibis2 extends Activity {
 					
 					Log.i("IBIS2", "listening");
 					answer = in.readLine();
-					String answer2 = in.readLine();
-					Log.i("IBIS2", "Received: " + answer + "answer2=" + answer2);
+					//String answer2 = in.readLine();
+					Log.i("IBIS2", "Received: " + answer);
 					
 					
 					//disp_1.append("- " + i + "-");
@@ -481,6 +481,8 @@ public class ibis2 extends Activity {
         @Override
 		protected void onProgressUpdate(String... answer) {
     		String answer2 = answer[0];
+    		
+    		Log.d("IBIS2", answer2);
     		
     		StringTokenizer tokens = new StringTokenizer(answer2, ":");
     		String first = tokens.nextToken();// this will contain "Fruit"
