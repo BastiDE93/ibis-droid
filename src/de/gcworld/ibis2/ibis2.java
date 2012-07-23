@@ -38,6 +38,9 @@ public class ibis2 extends Activity {
 	TextView disp_linie;
 	String omsi_date;
 	String route_n;
+	int cockpit_std;
+	int cockpit_min;
+	int IBIS_mode;
 	boolean isroute = false;
 	boolean noerror = true;
 	int maxroute = 0;
@@ -196,21 +199,24 @@ public class ibis2 extends Activity {
     {
     	public void onClick(View v)
     	{
-    		if((isroute) && (maxroute < 2)) {
-        		disp_2.append("0");
+    		//if((isroute) && (maxroute < 2)) {
+        	/*if(IBIS_mode != 9) {
+    		disp_2.append("0");
         		maxroute++;
         		}
-    		else {
+    		else {*/
+    			new sendText().execute("IBIS_date");
     		//disp_1.setText(getDate());
-    			try {
+    			//disp_1.setText(cockpit_std + ":" + cockpit_min);
+    			/*try {
 					outToServer.writeBytes("Hello World");
 					outToServer.flush();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				}*/
 		
-    		}
+    		//}
     	}
     };
     
@@ -220,6 +226,7 @@ public class ibis2 extends Activity {
     	{
     		disp_1.setText("ROUTE               :   ");
     		isroute = true;
+    		new sendText().execute("IBIS_setmode_route");
     	}
     };
     
@@ -227,10 +234,11 @@ public class ibis2 extends Activity {
     {
     	public void onClick(View v)
     	{
-    		if((isroute) && (maxroute < 2)) {
+    		/*if((isroute) && (maxroute < 2)) {
     		disp_2.append("1");
     		maxroute++;
-    		}
+    		}*/
+    		new sendText().execute("IBIS_1");
     	}
     };
     
@@ -238,10 +246,11 @@ public class ibis2 extends Activity {
     {
     	public void onClick(View v)
     	{
-    		if((isroute) && (maxroute < 2)) {
+    		/*if((isroute) && (maxroute < 2)) {
     		disp_2.append("2");
     		maxroute++;
-    		}
+    		}*/
+    		new sendText().execute("IBIS_2");
     	}
     };
     
@@ -249,10 +258,11 @@ public class ibis2 extends Activity {
     {
     	public void onClick(View v)
     	{
-    		if((isroute) && (maxroute < 2)) {
+    		/*if((isroute) && (maxroute < 2)) {
     		disp_2.append("3");
     		maxroute++;
-    		}
+    		}*/
+    		new sendText().execute("IBIS_3");
     	}
     };
     
@@ -260,10 +270,11 @@ public class ibis2 extends Activity {
     {
     	public void onClick(View v)
     	{
-    		if((isroute) && (maxroute < 2)) {
+    		/*if((isroute) && (maxroute < 2)) {
     		disp_2.append("4");
     		maxroute++;
-    		}
+    		}*/
+    		new sendText().execute("IBIS_4");
     	}
     };
     
@@ -271,10 +282,11 @@ public class ibis2 extends Activity {
     {
     	public void onClick(View v)
     	{
-    		if((isroute) && (maxroute < 2)) {
+    		/*if((isroute) && (maxroute < 2)) {
     		disp_2.append("5");
     		maxroute++;
-    		}
+    		}*/
+    		new sendText().execute("IBIS_5");
     	}
     };
     
@@ -282,10 +294,11 @@ public class ibis2 extends Activity {
     {
     	public void onClick(View v)
     	{
-    		if((isroute) && (maxroute < 2)) {
+    		/*if((isroute) && (maxroute < 2)) {
     		disp_2.append("6");
     		maxroute++;
-    		}
+    		}*/
+    		new sendText().execute("IBIS_6");
     	}
     };
     
@@ -293,10 +306,11 @@ public class ibis2 extends Activity {
     {
     	public void onClick(View v)
     	{
-    		if((isroute) && (maxroute < 2)) {
+    		/*if((isroute) && (maxroute < 2)) {
     		disp_2.append("7");
     		maxroute++;
-    		}
+    		}*/
+    		new sendText().execute("IBIS_7");
     	}
     };
     
@@ -304,10 +318,11 @@ public class ibis2 extends Activity {
     {
     	public void onClick(View v)
     	{
-    		if((isroute) && (maxroute < 2)) {
+    		/*if((isroute) && (maxroute < 2)) {
     		disp_2.append("8");
     		maxroute++;
-    		}
+    		}*/
+    		new sendText().execute("IBIS_8");
     	}
     };
     
@@ -315,10 +330,11 @@ public class ibis2 extends Activity {
     {
     	public void onClick(View v)
     	{
-    		if((isroute) && (maxroute < 2)) {
+    		/*if((isroute) && (maxroute < 2)) {
     		disp_2.append("9");
     		maxroute++;
-    		}
+    		}*/
+    		new sendText().execute("IBIS_9");
     	
     	}
     };
@@ -327,7 +343,7 @@ public class ibis2 extends Activity {
     {
     	public void onClick(View v)
     	{
-    		if(isroute) {
+    		/*if(isroute) {
     			CharSequence t = disp_2.getText();
     			String text = t.toString();
     			// TODO validate route
@@ -347,7 +363,8 @@ public class ibis2 extends Activity {
     				disp_1.setText("Falsche Route");
     			};
     			isroute = false;
-    		}
+    		}*/
+    		new sendText().execute("IBIS_eingabe");
     	}
     };
     
@@ -390,13 +407,13 @@ public class ibis2 extends Activity {
 		@Override
 		protected Void doInBackground(String...Strings) {
 			// TODO Auto-generated method stub
-			
+			String text = Strings[0];
 			// TODO check whether Socket is actually connected
 		
 			if(socket_av) {
 				
 				try {
-					outToServer.writeBytes("IBIS_loeschen");
+					outToServer.writeBytes(text);
 					outToServer.flush();
 					Log.i("IBIS2","Sending IBIS_loeschen");
 				} catch (IOException e) {
@@ -491,33 +508,47 @@ public class ibis2 extends Activity {
     		String fourth = tokens.nextToken();
     		String t5 = tokens.nextToken();
     		String t6 = tokens.nextToken();
-    		String t7 = tokens.nextToken();
-    		String t8 = tokens.nextToken();
+    		//String t7 = tokens.nextToken();
+    		//String t8 = tokens.nextToken();
     		
-    		Log.d("IBIS2","1: " + first + " 2: " + second + "3: " + third + " 4: " + fourth + ":" + t7 + t8);
-    		if(0==first.compareToIgnoreCase("IBIS_Route")) {
-    			if(Integer.parseInt(second)<10) {
-    				disp_route.setText("0"+second);
+    		IBIS_mode = Integer.parseInt(fourth);
+    		
+    		Log.d("IBIS2","1: " + first + " 2: " + second + "3: " + third + " 4: " + fourth);// + ":" + t7 + t8);
+
+    			if(Integer.parseInt(first)<10) {
+    				disp_route.setText("0"+first);
     			}
     			else {
-    			disp_route.setText(second);
+    			disp_route.setText(first);
     			}
-    		}
-    		if(0==third.compareToIgnoreCase("IBIS_Ziel")) {
-    			disp_ziel.setText(fourth);
-    		}
-    		if(0==t5.compareToIgnoreCase("IBIS_Linie")) {
-    			disp_linie.setText(t6);
-    		}
     		
-    		if(0==t7.compareToIgnoreCase("IBIS_NZiel")) {
-    			disp_1.setText(t8);
-    		}
+    		//if(0==third.compareToIgnoreCase("IBIS_Ziel")) {
+    			disp_ziel.setText(second);
+
+    			disp_linie.setText(third);
+    
+    			//disp_1.setText(fourth);
+    			
+    			int time = Integer.parseInt(t5);
+    			
+    			cockpit_std = time / 60;
+    			
+    			int cockpit_min_temp = (time*100/60 - cockpit_std*100);
+    			cockpit_min = cockpit_min_temp *60 /100;
+    			
+    			if(IBIS_mode == 9) {
+    				disp_1.setText(cockpit_std + ":" + cockpit_min);
+    			}
+    			
+    			//cockpit_std = Integer.parseInt(t5) / 3600;
+    			
+    			//cockpit_min = (Integer.parseInt(t5) - (cockpit_std*3600)) / 60;
+    		//}
     		
             //disp_1.setText(answer2);
         }
 
-        @Override
+		@Override
         protected void onPostExecute(String result) {
             toast(result);
             disp_1.setText(result);
