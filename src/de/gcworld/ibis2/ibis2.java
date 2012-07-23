@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.StringTokenizer;
+import java.util.concurrent.ScheduledExecutorService;
 
 import android.util.Log;
 import android.view.Menu;
@@ -50,6 +51,8 @@ public class ibis2 extends Activity {
 	boolean wrun;
 	boolean socket_av = false;
 	
+	private ScheduledExecutorService scheduleTaskExecutor;
+	
 	//final String IBIS_ROUTE = "IBIS_Route";
 	
 	private static final int SYNC_ID = Menu.FIRST+2;
@@ -79,6 +82,7 @@ public class ibis2 extends Activity {
         
         //default values
         disp_route.setText("00");
+        disp_2.setText("");
         
         
         
@@ -238,6 +242,10 @@ public class ibis2 extends Activity {
     		disp_2.append("1");
     		maxroute++;
     		}*/
+    		if(IBIS_mode == 2 && maxroute < 2) {
+    			disp_2.append("1");
+    			maxroute++;
+    		}
     		new sendText().execute("IBIS_1");
     	}
     };
@@ -250,6 +258,10 @@ public class ibis2 extends Activity {
     		disp_2.append("2");
     		maxroute++;
     		}*/
+    		if(IBIS_mode == 2 && maxroute < 2) {
+    			disp_2.append("2");
+    			maxroute++;
+    		}
     		new sendText().execute("IBIS_2");
     	}
     };
@@ -262,6 +274,10 @@ public class ibis2 extends Activity {
     		disp_2.append("3");
     		maxroute++;
     		}*/
+    		if(IBIS_mode == 2 && maxroute < 2) {
+    			disp_2.append("3");
+    			maxroute++;
+    		}
     		new sendText().execute("IBIS_3");
     	}
     };
@@ -274,6 +290,10 @@ public class ibis2 extends Activity {
     		disp_2.append("4");
     		maxroute++;
     		}*/
+    		if(IBIS_mode == 2 && maxroute < 2) {
+    			disp_2.append("4");
+    			maxroute++;
+    		}
     		new sendText().execute("IBIS_4");
     	}
     };
@@ -286,6 +306,10 @@ public class ibis2 extends Activity {
     		disp_2.append("5");
     		maxroute++;
     		}*/
+    		if(IBIS_mode == 2 && maxroute < 2) {
+    			disp_2.append("5");
+    			maxroute++;
+    		}
     		new sendText().execute("IBIS_5");
     	}
     };
@@ -298,6 +322,10 @@ public class ibis2 extends Activity {
     		disp_2.append("6");
     		maxroute++;
     		}*/
+    		if(IBIS_mode == 2 && maxroute < 2) {
+    			disp_2.append("6");
+    			maxroute++;
+    		}
     		new sendText().execute("IBIS_6");
     	}
     };
@@ -310,6 +338,10 @@ public class ibis2 extends Activity {
     		disp_2.append("7");
     		maxroute++;
     		}*/
+    		if(IBIS_mode == 2 && maxroute < 2) {
+    			disp_2.append("7");
+    			maxroute++;
+    		}
     		new sendText().execute("IBIS_7");
     	}
     };
@@ -322,6 +354,10 @@ public class ibis2 extends Activity {
     		disp_2.append("8");
     		maxroute++;
     		}*/
+    		if(IBIS_mode == 2 && maxroute < 2) {
+    			disp_2.append("8");
+    			maxroute++;
+    		}
     		new sendText().execute("IBIS_8");
     	}
     };
@@ -334,6 +370,10 @@ public class ibis2 extends Activity {
     		disp_2.append("9");
     		maxroute++;
     		}*/
+    		if(IBIS_mode == 2 && maxroute < 2) {
+    			disp_2.append("9");
+    			maxroute++;
+    		}
     		new sendText().execute("IBIS_9");
     	
     	}
@@ -364,6 +404,9 @@ public class ibis2 extends Activity {
     			};
     			isroute = false;
     		}*/
+    		disp_1.setText("");
+    		disp_2.setText("");
+    		maxroute = 0;
     		new sendText().execute("IBIS_eingabe");
     	}
     };
@@ -393,13 +436,13 @@ public class ibis2 extends Activity {
     }
     public void onDestroy()
     {
+    	wrun = false;
     	try {
 			socket.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			Log.e("IBIS2", "UNABLE: " + e);
 		}
-		wrun = false;
     }
     
     private class sendText extends AsyncTask<String, Void, Void> {
@@ -428,6 +471,7 @@ public class ibis2 extends Activity {
 		}
 		protected void onPostExecute(Void unused) {
 			//Nothing
+			Log.i("IBIS","Ending SendText Thread");
 		}
     	
     }
@@ -467,6 +511,11 @@ public class ibis2 extends Activity {
 					
 					Log.i("IBIS2", "listening");
 					answer = in.readLine();
+					
+					if(answer == "") {
+						outToServer.writeBytes("Hello World");
+						Log.e("IBIS2", "Something is wrong, server not responding");
+					}
 					//String answer2 = in.readLine();
 					Log.i("IBIS2", "Received: " + answer);
 					
