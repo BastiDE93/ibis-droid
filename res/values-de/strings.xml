@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="n1">1</string>
+    <string name="app_name">IBIS Droid</string>
+    <string name="hello">Hallo</string>
 </resources>

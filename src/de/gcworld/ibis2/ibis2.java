@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.StringTokenizer;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -46,12 +48,14 @@ public class ibis2 extends Activity {
 	boolean noerror = true;
 	int maxroute = 0;
 	
+	String cockpit_min_s;
+	String currentDateTimeString;
+	
 	String ip_address;
 	String answer;
 	boolean wrun;
 	boolean socket_av = false;
-	
-	private ScheduledExecutorService scheduleTaskExecutor;
+
 	
 	//final String IBIS_ROUTE = "IBIS_Route";
 	
@@ -79,12 +83,14 @@ public class ibis2 extends Activity {
         disp_route = (TextView)findViewById(R.id.disp_route);
         disp_ziel = (TextView)findViewById(R.id.disp_ziel);
         disp_linie = (TextView)findViewById(R.id.disp_linie);
+        TextView disp_delay = (TextView)findViewById(R.id.delay);
         
         //default values
         disp_route.setText("00");
         disp_2.setText("");
         
         
+        currentDateTimeString = DateFormat.getDateInstance().format(new Date());
         
         
         Button delete = (Button)findViewById(R.id.delete);
@@ -209,7 +215,12 @@ public class ibis2 extends Activity {
         		maxroute++;
         		}
     		else {*/
+    		if(IBIS_mode == 2 && maxroute < 2) {
+    			disp_2.append("0");
+    			maxroute++;
+    		}
     			new sendText().execute("IBIS_date");
+    			//new sendText().execute("IBIS_0");
     		//disp_1.setText(getDate());
     			//disp_1.setText(cockpit_std + ":" + cockpit_min);
     			/*try {
@@ -228,11 +239,16 @@ public class ibis2 extends Activity {
     {
     	public void onClick(View v)
     	{
-    		disp_1.setText("ROUTE               :   ");
-    		isroute = true;
+    		setRouteClass();
     		new sendText().execute("IBIS_setmode_route");
     	}
     };
+    
+    private void setRouteClass()
+    {
+    	disp_1.setText("ROUTE               :   ");
+		isroute = true;
+    }
     
     private OnClickListener setN1 = new OnClickListener()
     {
@@ -404,10 +420,16 @@ public class ibis2 extends Activity {
     			};
     			isroute = false;
     		}*/
+    		new sendText().execute("IBIS_eingabe");
+    		try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     		disp_1.setText("");
     		disp_2.setText("");
     		maxroute = 0;
-    		new sendText().execute("IBIS_eingabe");
     	}
     };
     
@@ -421,6 +443,7 @@ public class ibis2 extends Activity {
     
     private void deleteDisp()
     {
+    	Log.d("IBIS2", "Trying to send Button");
     	new sendText().execute("IBIS_loeschen");
     	disp_1.setText("");
 		disp_2.setText("");
@@ -431,7 +454,7 @@ public class ibis2 extends Activity {
     private void toast(CharSequence t)
     {
     	Toast
-		.makeText(this, t, 2000)
+		.makeText(this, t, Toast.LENGTH_SHORT)
 		.show();
     }
     public void onDestroy()
@@ -450,6 +473,7 @@ public class ibis2 extends Activity {
 		@Override
 		protected Void doInBackground(String...Strings) {
 			// TODO Auto-generated method stub
+			Log.d("IBIS2", "OK lets go");
 			String text = Strings[0];
 			// TODO check whether Socket is actually connected
 		
@@ -461,9 +485,14 @@ public class ibis2 extends Activity {
 					Log.i("IBIS2","Sending IBIS_loeschen");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					toast("No Connection");
+				} catch (Exception e) {
+					toast("NullPointerException");
 				}
 				
+			}
+			else {
+				toast("No Connection");
 			}
 			return null;
 			
@@ -502,8 +531,13 @@ public class ibis2 extends Activity {
 			}
 			
 			wrun = true;
+			
 			int i = 0;
 			while(wrun) {
+				if(isCancelled()) {
+					wrun = false;
+					break;
+				}
 				try {
 					Thread.sleep(1000);
 					outToServer.writeBytes("Hello World");
@@ -547,8 +581,7 @@ public class ibis2 extends Activity {
         @Override
 		protected void onProgressUpdate(String... answer) {
     		String answer2 = answer[0];
-    		
-    		Log.d("IBIS2", answer2);
+    	
     		
     		StringTokenizer tokens = new StringTokenizer(answer2, ":");
     		String first = tokens.nextToken();// this will contain "Fruit"
@@ -562,7 +595,6 @@ public class ibis2 extends Activity {
     		
     		IBIS_mode = Integer.parseInt(fourth);
     		
-    		Log.d("IBIS2","1: " + first + " 2: " + second + "3: " + third + " 4: " + fourth);// + ":" + t7 + t8);
 
     			if(Integer.parseInt(first)<10) {
     				disp_route.setText("0"+first);
@@ -574,6 +606,9 @@ public class ibis2 extends Activity {
     		//if(0==third.compareToIgnoreCase("IBIS_Ziel")) {
     			disp_ziel.setText(second);
 
+    			if(third.length() > 2) {
+    			third = third.substring(0, third.length() - 2);
+    			}
     			disp_linie.setText(third);
     
     			//disp_1.setText(fourth);
@@ -584,9 +619,19 @@ public class ibis2 extends Activity {
     			
     			int cockpit_min_temp = (time*100/60 - cockpit_std*100);
     			cockpit_min = cockpit_min_temp *60 /100;
+    			if(cockpit_min < 10) {
+    				cockpit_min_s = "0" + cockpit_min;
+    			}
+    			else {
+    				cockpit_min_s = Integer.toString(cockpit_min);
+    			}
+    			
+    			if(IBIS_mode == 2) {
+    				setRouteClass();
+    			}
     			
     			if(IBIS_mode == 9) {
-    				disp_1.setText(cockpit_std + ":" + cockpit_min);
+    				disp_1.setText(currentDateTimeString + "            " + cockpit_std + ":" + cockpit_min_s);
     			}
     			
     			//cockpit_std = Integer.parseInt(t5) / 3600;
