@@ -28,9 +28,8 @@ public final class R {
         public static final int button19=0x7f07001d;
         public static final int button20=0x7f07001c;
         public static final int button7=0x7f070017;
-        public static final int button8=0x7f070016;
-        public static final int close=0x7f070028;
-        public static final int connect=0x7f070029;
+        public static final int close=0x7f070027;
+        public static final int connect=0x7f070028;
         public static final int date=0x7f070024;
         public static final int delay=0x7f07000c;
         public static final int delete=0x7f070023;
@@ -40,7 +39,7 @@ public final class R {
         public static final int disp_route=0x7f070009;
         public static final int disp_ziel=0x7f07000a;
         public static final int eingabe=0x7f070025;
-        public static final int ip=0x7f070026;
+        public static final int linie=0x7f070016;
         public static final int n1=0x7f070004;
         public static final int n2=0x7f070005;
         public static final int n3=0x7f070006;
@@ -51,7 +50,7 @@ public final class R {
         public static final int n8=0x7f070019;
         public static final int n9=0x7f07001a;
         public static final int route=0x7f070015;
-        public static final int settings=0x7f070027;
+        public static final int settings=0x7f070026;
         public static final int tableLayout1=0x7f070000;
         public static final int tableRow1=0x7f070007;
         public static final int tableRow2=0x7f070010;

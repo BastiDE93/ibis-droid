@@ -58,6 +58,8 @@ public class ibis2 extends Activity {
 	String answer;
 	boolean wrun;
 	boolean socket_av = false;
+	boolean disp;
+	String linie_number;
 
 	
 	//final String IBIS_ROUTE = "IBIS_Route";
@@ -107,6 +109,9 @@ public class ibis2 extends Activity {
         
         Button route = (Button)findViewById(R.id.route);
         route.setOnClickListener(setRoute);
+        
+        Button linie = (Button)findViewById(R.id.linie);
+        linie.setOnClickListener(setLinie);
         
         Button n1 = (Button)findViewById(R.id.n1);
         n1.setOnClickListener(setN1);
@@ -221,12 +226,13 @@ public class ibis2 extends Activity {
         		maxroute++;
         		}
     		else {*/
+    		disp = true;
     		if(IBIS_mode == 2 && maxroute < 2) {
     			disp_2.append("0");
     			maxroute++;
     		}
 			
-			if(IBIS_mode == 3 && maxlinie < 5) {
+			if(IBIS_mode == 1 && maxlinie < 5) {
     			disp_2.append("0");
     			maxlinie++;
     		}
@@ -250,15 +256,34 @@ public class ibis2 extends Activity {
     {
     	public void onClick(View v)
     	{
+    		
     		setRouteClass();
     		new sendText().execute("IBIS_setmode_route");
     	}
     };
     
+    private OnClickListener setLinie = new OnClickListener()
+    {
+    	public void onClick(View v)
+    	{
+    		setLinieClass();
+    		new sendText().execute("IBIS_setmode_linie");
+    	}
+    };
+    
     private void setRouteClass()
     {
+    	disp = true;
     	disp_1.setText("ROUTE               :   ");
 		isroute = true;
+    }
+    
+    private void setLinieClass()
+    {
+    	disp = true;
+    	disp_1.setText("LINIE/KURS          :   ");
+    	disp_2.setText(linie_number);
+    	
     }
     
     private OnClickListener setN1 = new OnClickListener()
@@ -496,6 +521,7 @@ public class ibis2 extends Activity {
     		disp_2.setText("");
     		maxroute = 0;
 			maxlinie = 0;
+			disp = false;
     	}
     };
     
@@ -516,6 +542,17 @@ public class ibis2 extends Activity {
 		isroute = false;
 		maxroute = 0;
 		maxlinie = 0;
+		//disp = false;
+    }
+    
+    private void deleteDisp2()
+    {
+    	disp_1.setText("");
+		disp_2.setText("");
+		isroute = false;
+		maxroute = 0;
+		maxlinie = 0;
+		disp = false;
     }
     
     private void toast(CharSequence t)
@@ -660,6 +697,8 @@ public class ibis2 extends Activity {
     		//String t7 = tokens.nextToken();
     		//String t8 = tokens.nextToken();
     		
+    		linie_number = third;
+    		
     		IBIS_mode = Integer.parseInt(fourth);
     		
 
@@ -691,6 +730,16 @@ public class ibis2 extends Activity {
     			}
     			else {
     				cockpit_min_s = Integer.toString(cockpit_min);
+    			}
+    			
+    			if(IBIS_mode == 0) {
+    				if(disp) {
+    					deleteDisp2();
+    				}
+    			}
+    			
+    			if(IBIS_mode == 1) {
+    				setLinieClass();
     			}
     			
     			if(IBIS_mode == 2) {
