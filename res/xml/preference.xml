@@ -6,6 +6,6 @@
 
 		<EditTextPreference
 				android:title="IP Adresse"
-				android:summary="IP Adresse des OMSI PCs" android:key="@+id/ip" android:enabled="true"/>
+				android:summary="IP Adresse des OMSI PCs" android:key="ip" android:enabled="true"/>
     </PreferenceCategory>
 </PreferenceScreen>

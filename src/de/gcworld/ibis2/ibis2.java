@@ -1,5 +1,7 @@
 package de.gcworld.ibis2;
 
+//import de.gcworld.ibis2.Settings;
+
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -148,7 +150,9 @@ public class ibis2 extends Activity {
 		switch (item.getItemId()) {
 		case R.id.close: 
 			try {
-				close();
+				if(socket_av) {
+					close();	
+				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				Log.e("IBIS2", "Error closing Socket: " + e);
@@ -160,6 +164,7 @@ public class ibis2 extends Activity {
 			return(true);
 		case R.id.settings:
 		
+			Log.d("IBIS2", "Starting Preferences");
 			startActivity(new Intent(this, Settings.class));
 			return(true);
 			
