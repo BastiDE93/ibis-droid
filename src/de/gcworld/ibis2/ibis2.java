@@ -47,6 +47,7 @@ public class ibis2 extends Activity {
 	boolean isroute = false;
 	boolean noerror = true;
 	int maxroute = 0;
+	int maxlinie = 0;
 	
 	String cockpit_min_s;
 	String currentDateTimeString;
@@ -219,6 +220,11 @@ public class ibis2 extends Activity {
     			disp_2.append("0");
     			maxroute++;
     		}
+			
+			if(IBIS_mode == 3 && maxlinie < 5) {
+    			disp_2.append("0");
+    			maxlinie++;
+    		}
     			new sendText().execute("IBIS_date");
     			//new sendText().execute("IBIS_0");
     		//disp_1.setText(getDate());
@@ -262,6 +268,12 @@ public class ibis2 extends Activity {
     			disp_2.append("1");
     			maxroute++;
     		}
+			
+			if(IBIS_mode == 3 && maxlinie < 5) {
+    			disp_2.append("1");
+    			maxlinie++;
+    		}
+			
     		new sendText().execute("IBIS_1");
     	}
     };
@@ -278,6 +290,12 @@ public class ibis2 extends Activity {
     			disp_2.append("2");
     			maxroute++;
     		}
+			
+			if(IBIS_mode == 3 && maxlinie < 5) {
+    			disp_2.append("2");
+    			maxlinie++;
+    		}
+			
     		new sendText().execute("IBIS_2");
     	}
     };
@@ -294,6 +312,12 @@ public class ibis2 extends Activity {
     			disp_2.append("3");
     			maxroute++;
     		}
+			
+			if(IBIS_mode == 3 && maxlinie < 5) {
+    			disp_2.append("3");
+    			maxlinie++;
+    		}
+			
     		new sendText().execute("IBIS_3");
     	}
     };
@@ -310,6 +334,12 @@ public class ibis2 extends Activity {
     			disp_2.append("4");
     			maxroute++;
     		}
+			
+			if(IBIS_mode == 3 && maxlinie < 5) {
+    			disp_2.append("4");
+    			maxlinie++;
+    		}
+			
     		new sendText().execute("IBIS_4");
     	}
     };
@@ -326,6 +356,12 @@ public class ibis2 extends Activity {
     			disp_2.append("5");
     			maxroute++;
     		}
+			
+			if(IBIS_mode == 3 && maxlinie < 5) {
+    			disp_2.append("5");
+    			maxlinie++;
+    		}
+			
     		new sendText().execute("IBIS_5");
     	}
     };
@@ -342,6 +378,12 @@ public class ibis2 extends Activity {
     			disp_2.append("6");
     			maxroute++;
     		}
+			
+			if(IBIS_mode == 3 && maxlinie < 5) {
+    			disp_2.append("6");
+    			maxlinie++;
+    		}
+			
     		new sendText().execute("IBIS_6");
     	}
     };
@@ -358,6 +400,12 @@ public class ibis2 extends Activity {
     			disp_2.append("7");
     			maxroute++;
     		}
+			
+			if(IBIS_mode == 3 && maxlinie < 5) {
+    			disp_2.append("7");
+    			maxlinie++;
+    		}
+			
     		new sendText().execute("IBIS_7");
     	}
     };
@@ -374,6 +422,12 @@ public class ibis2 extends Activity {
     			disp_2.append("8");
     			maxroute++;
     		}
+			
+			if(IBIS_mode == 3 && maxlinie < 5) {
+    			disp_2.append("8");
+    			maxlinie++;
+    		}
+			
     		new sendText().execute("IBIS_8");
     	}
     };
@@ -390,6 +444,12 @@ public class ibis2 extends Activity {
     			disp_2.append("9");
     			maxroute++;
     		}
+			
+			if(IBIS_mode == 3 && maxlinie < 5) {
+    			disp_2.append("9");
+    			maxlinie++;
+    		}
+			
     		new sendText().execute("IBIS_9");
     	
     	}
@@ -430,6 +490,7 @@ public class ibis2 extends Activity {
     		disp_1.setText("");
     		disp_2.setText("");
     		maxroute = 0;
+			maxlinie = 0;
     	}
     };
     
@@ -449,6 +510,7 @@ public class ibis2 extends Activity {
 		disp_2.setText("");
 		isroute = false;
 		maxroute = 0;
+		maxlinie = 0;
     }
     
     private void toast(CharSequence t)
