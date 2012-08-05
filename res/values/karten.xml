@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="Karten">
+		<item>Grundorf</item>
+	</string-array>
+	<string-array name="KartenValues">
+		<item>a</item>
+	</string-array>
+</resources>

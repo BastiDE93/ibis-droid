@@ -8,4 +8,10 @@
 				android:title="IP Adresse"
 				android:summary="IP Adresse des OMSI PCs" android:key="ip" android:enabled="true"/>
     </PreferenceCategory>
+   <PreferenceCategory android:title="OMSI Einstellungen">
+       <ListPreference android:dialogTitle="Karte auswählen" android:title="Karte" android:key="karten" android:entries="@array/Karten" android:entryValues="@array/KartenValues"/>
+     
+       
+       
+   </PreferenceCategory>
 </PreferenceScreen>

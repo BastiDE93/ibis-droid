@@ -100,11 +100,25 @@
             android:id="@+id/disp_ziel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="0"
-            android:layout_span="2"
+            android:layout_span="1"
             android:layout_weight="1"
-            android:textSize="30dp"
-            android:textAppearance="?android:attr/textAppearanceLarge" >
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="30dp" >
+
+        </TextView>
+        
+        <TextView
+            android:id="@+id/disp_zone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_span="1"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="30dp" >
+
         </TextView>
 
         <TextView
@@ -227,12 +241,11 @@ Kurs" >
         </Button>
 
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/ziel"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="left|center_vertical"
-            android:text="Ziel"
-     >
+            android:text="Ziel" >
 
         </Button>
 
@@ -276,7 +289,7 @@ Kurs" >
         android:layout_weight="1">
 
         <Button
-            android:id="@+id/button20"
+            android:id="@+id/vor_stumm"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -284,7 +297,7 @@ Kurs" >
         </Button>
 
         <Button
-            android:id="@+id/button19"
+            android:id="@+id/vor"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -292,7 +305,7 @@ Kurs" >
         </Button>
 
         <Button
-            android:id="@+id/button18"
+            android:id="@+id/rueck"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"

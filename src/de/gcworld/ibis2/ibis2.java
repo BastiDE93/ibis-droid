@@ -12,7 +12,6 @@ import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.StringTokenizer;
-import java.util.concurrent.ScheduledExecutorService;
 
 import android.util.Log;
 import android.view.Menu;
@@ -41,6 +40,7 @@ public class ibis2 extends Activity {
 	TextView disp_route;
 	TextView disp_ziel;
 	TextView disp_linie;
+	TextView disp_zone;
 	String omsi_date;
 	String route_n;
 	int cockpit_std;
@@ -50,6 +50,11 @@ public class ibis2 extends Activity {
 	boolean noerror = true;
 	int maxroute = 0;
 	int maxlinie = 0;
+	int maxziel = 0;
+	
+	SharedPreferences settings_string;
+	
+	String ziel_code;
 	
 	String cockpit_min_s;
 	String currentDateTimeString;
@@ -60,6 +65,13 @@ public class ibis2 extends Activity {
 	boolean socket_av = false;
 	boolean disp;
 	String linie_number;
+	
+	boolean linie_executed = false;
+	boolean delete_executed = false;
+	boolean route_executed = false;
+	boolean ziel_executed = false;
+	
+	String busstop_code;
 
 	
 	//final String IBIS_ROUTE = "IBIS_Route";
@@ -77,7 +89,7 @@ public class ibis2 extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        SharedPreferences settings_string = PreferenceManager.getDefaultSharedPreferences(this);
+        settings_string = PreferenceManager.getDefaultSharedPreferences(this);
     	ip_address = settings_string.getString("ip", "127.0.0.1");
     	Log.d("IBIS2","IP ist: " + ip_address);
        
@@ -88,6 +100,7 @@ public class ibis2 extends Activity {
         disp_route = (TextView)findViewById(R.id.disp_route);
         disp_ziel = (TextView)findViewById(R.id.disp_ziel);
         disp_linie = (TextView)findViewById(R.id.disp_linie);
+        disp_zone = (TextView)findViewById(R.id.disp_zone);
         TextView disp_delay = (TextView)findViewById(R.id.delay);
         
         //default values
@@ -112,6 +125,18 @@ public class ibis2 extends Activity {
         
         Button linie = (Button)findViewById(R.id.linie);
         linie.setOnClickListener(setLinie);
+        
+        Button ziel = (Button)findViewById(R.id.ziel);
+        ziel.setOnClickListener(setZiel);
+        
+        Button vor_stumm = (Button)findViewById(R.id.vor_stumm);
+        vor_stumm.setOnClickListener(vorStummClass);
+        
+        Button vor = (Button)findViewById(R.id.vor);
+        vor.setOnClickListener(vorClass);
+        
+        Button rueck = (Button)findViewById(R.id.rueck);
+        rueck.setOnClickListener(rueckClass);
         
         Button n1 = (Button)findViewById(R.id.n1);
         n1.setOnClickListener(setN1);
@@ -231,9 +256,20 @@ public class ibis2 extends Activity {
     			disp_2.append("0");
     			maxroute++;
     		}
+    		
+    		if(IBIS_mode == 3 && maxziel < 3) {
+    			disp_2.append("0");
+    			maxziel++;
+    		}
 			
 			if(IBIS_mode == 1 && maxlinie < 5) {
-    			disp_2.append("0");
+				if(maxlinie==0) {
+    				disp_2.setText("");
+    				disp_2.append("0");
+    			}
+    			else{
+					disp_2.append("0");
+				}
     			maxlinie++;
     		}
     			new sendText().execute("IBIS_date");
@@ -271,6 +307,15 @@ public class ibis2 extends Activity {
     	}
     };
     
+    private OnClickListener setZiel = new OnClickListener()
+    {
+    	public void onClick(View v)
+    	{
+    		setZielClass();
+    		new sendText().execute("IBIS_setmode_ziel");
+    	}
+    };
+    
     private void setRouteClass()
     {
     	disp = true;
@@ -286,6 +331,53 @@ public class ibis2 extends Activity {
     	
     }
     
+    private void setZielClass()
+    {
+    	disp = true;
+    	disp_1.setText("Ziel                :   ");
+    	
+    }
+    
+    private void setDisplayName()
+    {
+    	String karten_code = settings_string.getString("karten", "a");
+    	disp_1.setText(getStringResourceByName(karten_code + ziel_code + "b" + busstop_code));
+    }
+    
+    private OnClickListener vorStummClass = new OnClickListener()
+    {
+    	public void onClick(View v)
+    	{
+    	new sendText().execute("IBIS_vor_stumm");
+    	
+    }
+    };
+    
+    private String getStringResourceByName(String aString)
+    {
+      String packageName = "de.gcworld.ibis2";
+      int resId = getResources().getIdentifier(aString, "string", packageName);
+      return getString(resId);
+    }
+    
+    	private OnClickListener vorClass = new OnClickListener()
+        {
+        	public void onClick(View v)
+        	{
+    	new sendText().execute("IBIS_vor");
+    	
+    }
+        };
+    
+   private OnClickListener rueckClass = new OnClickListener()
+            {
+            	public void onClick(View v)
+            	{
+    	new sendText().execute("IBIS_rueck");
+    	
+    }
+            };
+    
     private OnClickListener setN1 = new OnClickListener()
     {
     	public void onClick(View v)
@@ -298,9 +390,21 @@ public class ibis2 extends Activity {
     			disp_2.append("1");
     			maxroute++;
     		}
-			
-			if(IBIS_mode == 3 && maxlinie < 5) {
+    		
+    		if(IBIS_mode == 3 && maxziel < 3) {
     			disp_2.append("1");
+    			maxziel++;
+    		}
+			
+			if(IBIS_mode == 1 && maxlinie < 5) {
+    			
+    			if(maxlinie==0) {
+    				disp_2.setText("");
+    				disp_2.append("1");
+    			}
+    			else{
+					disp_2.append("1");
+				}
     			maxlinie++;
     		}
 			
@@ -320,9 +424,20 @@ public class ibis2 extends Activity {
     			disp_2.append("2");
     			maxroute++;
     		}
-			
-			if(IBIS_mode == 3 && maxlinie < 5) {
+    		
+    		if(IBIS_mode == 3 && maxziel < 3) {
     			disp_2.append("2");
+    			maxziel++;
+    		}
+			
+			if(IBIS_mode == 1 && maxlinie < 5) {
+				if(maxlinie==0) {
+    				disp_2.setText("");
+    				disp_2.append("2");
+    			}
+				else{
+					disp_2.append("2");
+				}
     			maxlinie++;
     		}
 			
@@ -342,9 +457,20 @@ public class ibis2 extends Activity {
     			disp_2.append("3");
     			maxroute++;
     		}
-			
-			if(IBIS_mode == 3 && maxlinie < 5) {
+    		
+    		if(IBIS_mode == 3 && maxziel < 3) {
     			disp_2.append("3");
+    			maxziel++;
+    		}
+			
+			if(IBIS_mode == 1 && maxlinie < 5) {
+				if(maxlinie==0) {
+    				disp_2.setText("");
+    				disp_2.append("3");
+    			}
+				else{
+					disp_2.append("3");
+				}
     			maxlinie++;
     		}
 			
@@ -364,9 +490,20 @@ public class ibis2 extends Activity {
     			disp_2.append("4");
     			maxroute++;
     		}
-			
-			if(IBIS_mode == 3 && maxlinie < 5) {
+    		
+    		if(IBIS_mode == 3 && maxziel < 3) {
     			disp_2.append("4");
+    			maxziel++;
+    		}
+			
+			if(IBIS_mode == 1 && maxlinie < 5) {
+				if(maxlinie==0) {
+    				disp_2.setText("");
+    				disp_2.append("4");
+    			}
+				else{
+					disp_2.append("4");
+				}
     			maxlinie++;
     		}
 			
@@ -386,9 +523,20 @@ public class ibis2 extends Activity {
     			disp_2.append("5");
     			maxroute++;
     		}
-			
-			if(IBIS_mode == 3 && maxlinie < 5) {
+    		
+    		if(IBIS_mode == 3 && maxziel < 3) {
     			disp_2.append("5");
+    			maxziel++;
+    		}
+			
+			if(IBIS_mode == 1 && maxlinie < 5) {
+				if(maxlinie==0) {
+    				disp_2.setText("");
+    				disp_2.append("5");
+    			}
+				else{
+					disp_2.append("5");
+				}
     			maxlinie++;
     		}
 			
@@ -406,11 +554,23 @@ public class ibis2 extends Activity {
     		}*/
     		if(IBIS_mode == 2 && maxroute < 2) {
     			disp_2.append("6");
+    		
     			maxroute++;
     		}
-			
-			if(IBIS_mode == 3 && maxlinie < 5) {
+    		
+    		if(IBIS_mode == 3 && maxziel < 3) {
     			disp_2.append("6");
+    			maxziel++;
+    		}
+			
+			if(IBIS_mode == 1 && maxlinie < 5) {
+				if(maxlinie==0) {
+    				disp_2.setText("");
+    				disp_2.append("6");
+    			}
+    			else{
+					disp_2.append("6");
+				}
     			maxlinie++;
     		}
 			
@@ -430,9 +590,19 @@ public class ibis2 extends Activity {
     			disp_2.append("7");
     			maxroute++;
     		}
-			
-			if(IBIS_mode == 3 && maxlinie < 5) {
+    		if(IBIS_mode == 3 && maxziel < 3) {
     			disp_2.append("7");
+    			maxziel++;
+    		}
+			
+			if(IBIS_mode == 1 && maxlinie < 5) {
+				if(maxlinie==0) {
+    				disp_2.setText("");
+    				disp_2.append("7");
+    			}
+				else{
+					disp_2.append("7");
+				}
     			maxlinie++;
     		}
 			
@@ -452,9 +622,19 @@ public class ibis2 extends Activity {
     			disp_2.append("8");
     			maxroute++;
     		}
-			
-			if(IBIS_mode == 3 && maxlinie < 5) {
+    		if(IBIS_mode == 3 && maxziel < 3) {
     			disp_2.append("8");
+    			maxziel++;
+    		}
+			
+			if(IBIS_mode == 1 && maxlinie < 5) {
+				if(maxlinie==0) {
+    				disp_2.setText("");
+    				disp_2.append("8");
+    			}
+    			else{
+					disp_2.append("8");
+				}
     			maxlinie++;
     		}
 			
@@ -474,9 +654,20 @@ public class ibis2 extends Activity {
     			disp_2.append("9");
     			maxroute++;
     		}
-			
-			if(IBIS_mode == 3 && maxlinie < 5) {
+    		
+    		if(IBIS_mode == 3 && maxziel < 3) {
     			disp_2.append("9");
+    			maxziel++;
+    		}
+			
+			if(IBIS_mode == 1 && maxlinie < 5) {
+				if(maxlinie==0) {
+    				disp_2.setText("");
+    				disp_2.append("9");
+    			}
+				else{
+					disp_2.append("9");
+				}
     			maxlinie++;
     		}
 			
@@ -521,17 +712,11 @@ public class ibis2 extends Activity {
     		disp_2.setText("");
     		maxroute = 0;
 			maxlinie = 0;
+			maxziel = 0;
 			disp = false;
     	}
     };
-    
-    private String getDate()
-    {
-    	//new sendTextTask().execute("date_time");
-    	//omsi_date = Send("date_time");
-		//get Date from OMSI
-    	return answer;
-    }
+  
     
     private void deleteDisp()
     {
@@ -542,6 +727,7 @@ public class ibis2 extends Activity {
 		isroute = false;
 		maxroute = 0;
 		maxlinie = 0;
+		maxziel = 0;
 		//disp = false;
     }
     
@@ -552,6 +738,7 @@ public class ibis2 extends Activity {
 		isroute = false;
 		maxroute = 0;
 		maxlinie = 0;
+		maxziel = 0;
 		disp = false;
     }
     
@@ -618,7 +805,7 @@ public class ibis2 extends Activity {
         	if(isOnline()) {
         	
         	try {
-				socket = new Socket("192.168.178.40", MY_PORT);
+				socket = new Socket(ip_address, MY_PORT);
 				outToServer = new DataOutputStream(socket.getOutputStream());
 				//inFromServer = new DataInputStream(socket.getInputStream()); 
 				in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -694,13 +881,19 @@ public class ibis2 extends Activity {
     		String fourth = tokens.nextToken();
     		String t5 = tokens.nextToken();
     		String t6 = tokens.nextToken();
+    		String t7 = tokens.nextToken();
     		//String t7 = tokens.nextToken();
     		//String t8 = tokens.nextToken();
+    		
+    		busstop_code = t7;
+    		
+    		ziel_code = second;
     		
     		linie_number = third;
     		
     		IBIS_mode = Integer.parseInt(fourth);
     		
+    		disp_zone.setText(t6);
 
     			if(Integer.parseInt(first)<10) {
     				disp_route.setText("0"+first);
@@ -733,17 +926,54 @@ public class ibis2 extends Activity {
     			}
     			
     			if(IBIS_mode == 0) {
-    				if(disp) {
-    					deleteDisp2();
+    				if(!delete_executed) {
+    					if(disp) {
+    				
+    						deleteDisp2();
+    						delete_executed = true;
+    					}
     				}
+    			}
+    			else {
+    				delete_executed = false;
     			}
     			
     			if(IBIS_mode == 1) {
+    				if(!linie_executed) {
     				setLinieClass();
+    				linie_executed = true;
+    				}
+    			}
+    			else {
+    				linie_executed = false;
     			}
     			
     			if(IBIS_mode == 2) {
-    				setRouteClass();
+    				if(!route_executed) {
+    					
+    					route_executed = true;
+    					setRouteClass();
+    				}
+    			}
+    			else {
+    				route_executed = false;
+    			}
+    			
+    			if(IBIS_mode == 3) {
+    				if(!ziel_executed) {
+    					
+    					ziel_executed = true;
+    					setZielClass();
+    				}
+    			}
+    			else {
+    				ziel_executed = false;
+    			}
+    			
+    			if(IBIS_mode == 0 || IBIS_mode == 8) {
+    				
+    					setDisplayName();
+    				
     			}
     			
     			if(IBIS_mode == 9) {
