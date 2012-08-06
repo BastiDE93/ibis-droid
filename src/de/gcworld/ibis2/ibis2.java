@@ -341,7 +341,11 @@ public class ibis2 extends Activity {
     private void setDisplayName()
     {
     	String karten_code = settings_string.getString("karten", "a");
-    	disp_1.setText(getStringResourceByName(karten_code + ziel_code + "b" + busstop_code));
+    	String tmp_ziel = getStringResourceByName(karten_code + ziel_code + "b" + busstop_code);
+		if(tmp_ziel == null) {
+			tmp_ziel = karten_code + ziel_code + "b" + busstop_code;
+		}
+		disp_1.setText(tmp_ziel);
     }
     
     private OnClickListener vorStummClass = new OnClickListener()
