@@ -754,47 +754,53 @@ public class ibis2 extends Activity {
     }
     public void onDestroy()
     {
+		super.onDestroy();
     	wrun = false;
     	try {
-			socket.close();
+			if(socket_av) {
+			socket.close();}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			Log.e("IBIS2", "UNABLE: " + e);
+		} catch (NullPointerException e) {
 			Log.e("IBIS2", "UNABLE: " + e);
 		}
     }
     
-    private class sendText extends AsyncTask<String, Void, Void> {
+    private class sendText extends AsyncTask<String, Void, String> {
 
 		@Override
-		protected Void doInBackground(String...Strings) {
+		protected String doInBackground(String...Strings) {
 			// TODO Auto-generated method stub
 			Log.d("IBIS2", "OK lets go");
 			String text = Strings[0];
 			// TODO check whether Socket is actually connected
-		
+			String result;
 			if(socket_av) {
 				
 				try {
 					outToServer.writeBytes(text);
 					outToServer.flush();
 					Log.i("IBIS2","Sending IBIS_loeschen");
+					result = "All good";
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
-					toast("No Connection");
+					result = "No Connection";
 				} catch (Exception e) {
-					toast("NullPointerException");
+					result = "NullPointerException";
 				}
 				
 			}
 			else {
-				toast("No Connection");
+				result = "No Connection";
 			}
-			return null;
+			return result;
 			
 			//return answer;
 		}
-		protected void onPostExecute(Void unused) {
-			//Nothing
+		protected void onPostExecute(String result) {
+			//Nothin
+			toast(result);
 			Log.i("IBIS","Ending SendText Thread");
 		}
     	
@@ -995,8 +1001,8 @@ public class ibis2 extends Activity {
 		@Override
         protected void onPostExecute(String result) {
             toast(result);
-            disp_1.setText(result);
-            Log.i("IBIS2", "displaying toast with result");
+            socket_av = false;
+            Log.i("IBIS2", "ending socket connection");
         }
     }
     
