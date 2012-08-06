@@ -989,6 +989,18 @@ public class ibis2 extends Activity {
     			if(IBIS_mode == 9) {
     				disp_1.setText(currentDateTimeString + "            " + cockpit_std + ":" + cockpit_min_s);
     			}
+				
+				if(IBIS_mode == 4) {
+					disp_1.setText("Fehler");
+					try {
+					Thread.sleep(1000);
+					
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+					disp_1.setText("");
+				}//TODO RICHTIGE NUMMER
     			
     			//cockpit_std = Integer.parseInt(t5) / 3600;
     			
