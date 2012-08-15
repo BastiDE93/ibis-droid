@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="b81b17">Heerstr./Stadtgrenze</string>
+	<string name="b81b11">Falkenseer Ch.</string>
+	<string name="b81b54">Stadtrandstr.</string>
+	<string name="b81b2">Am Bogen</string>
+	<string name="b81b6">Beerwinkel</string>
+	<string name="b81b3">Am Kiesteich</string>
+	<string name="b81b39">Mülheimer Str.</string>
+	<string name="b81b51">Siegener Str.</string>
+	<string name="b81b58">Zeppelinstr.</string>
+	<string name="b81b59">Zweibrücker Str.</string>
+	<string name="b81b27">Hohenzollernring</string>
+	<string name="b81b4">Askanierring</string>
+	<string name="b81b15">Flankenschanze</string>
+	<string name="b81b14">Falkenseer Platz</string>
+	<string name="b81b0">U Altstadt Spandau</string>
+	<string name="b81b29">Hoher Steinweg</string>
+	<string name="b81b36">Moritzstraße</string>
+	<string name="b81b44">U Rathaus Spandau</string>
+	<string name="b81b9"> Brunsbütteler Damm</string>
+	<string name="b81b48">Seeburger Str.</string>
+	<string name="b81b50">Seecktstr.</string>
+	<string name="b81b41">Päwesiner Weg</string>
+	<string name="b81b47">Schm-Knobelsdorf-Str</string>
+	<string name="b81b38">Maulbeerallee</string>
+	<string name="b81b40">Obstallee</string>
+	<string name="b81b24">Heerstr./Sandstr.</string>
+	<string name="b81b22">Magistratsweg</string>
+	<string name="b81b23">Heerstr 438#8211;446</string>
+	<string name="b81b43">Pillnitzer Weg</string>
+	<string name="b81b53">Heerstr./Stadtgrenze</string>
+	
+	
+	<string name="b210b53">Freudstr.</string>
+	<string name="b210b43">Pillnitzer Weg</string>
+	<string name="b210b17">Goldkäferweg</string>
+	<string name="b210b18">Freudstr.</string>
+	<string name="b210b54">Stadtrandstr.</string>
+	<string name="b210b2">Am Bogen</string>
+	<string name="b210b6">Beerwinkel</string>
+	<string name="b210b3">Wasserwerkstr.</string>
+	<string name="b210b16">Frankenwaldstr.</string>
+	<string name="b210b56">Westerwaldstr.</string>
+	<string name="b210b58">Zeppelinstr.</string>
+	<string name="b210b59">Zweibrücker Str.</string>
+	<string name="b210b27">Hohenzollernring</string>
+	<string name="b210b4">Askanierring</string>
+	<string name="b210b15">Flankenschanze</string>
+	
+	<string name="b210b0">U Altstadt Spandau</string>
+	<string name="b210b13">Falkenseer Damm</string>
+	<string name="b210b29">Hoher Steinweg</string>
+	<string name="b210b36">Moritzstraße</string>
+	<string name="b210b44">U Rathaus Spandau</string>
+	<string name="b210b46">Ruhlebener Str.</string>
+	<string name="b210b32">Klosterstr.</string>
+	<string name="b210b50">Seecktstr.</string>
+	<string name="b210b41">Päwesiner Weg</string>
+	<string name="b210b48">Seeburger Str.</string>
+	<string name="b210b49">Seeburger Weg</string>
+	<string name="b210b7">Blasewitzer Ring</string>
+	<string name="b210b24">Heerstr./Sandstr.</string>
+	<string name="b210b22">Magistratsweg</string>
+	<string name="b210b23">Heerstr 438-446</string>
+	
+	
+	<string name="b0b0"></string>
+</resources>

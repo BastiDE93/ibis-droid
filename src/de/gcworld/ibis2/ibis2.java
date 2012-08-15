@@ -361,6 +361,10 @@ public class ibis2 extends Activity {
     {
       String packageName = "de.gcworld.ibis2";
       int resId = getResources().getIdentifier(aString, "string", packageName);
+      Log.d("IBIS2", "Resource ID:" + resId);
+      if(resId==0) {
+    	  resId = getResources().getIdentifier("a0b0", "string", packageName);
+      }
       return getString(resId);
     }
     
@@ -800,7 +804,9 @@ public class ibis2 extends Activity {
 		}
 		protected void onPostExecute(String result) {
 			//Nothin
-			toast(result);
+			if(result!="All good"){
+				toast(result);
+			}
 			Log.i("IBIS","Ending SendText Thread");
 		}
     	
@@ -991,16 +997,20 @@ public class ibis2 extends Activity {
     			}
 				
 				if(IBIS_mode == 4) {
-					disp_1.setText("Fehler");
-					try {
+					disp_1.setText("         Falsche Route");
+					/*try {
 					Thread.sleep(1000);
 					
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-					disp_1.setText("");
+					disp_1.setText("");*/
 				}//TODO RICHTIGE NUMMER
+				
+				if(IBIS_mode == 6) {
+					disp_1.setText("         Falsches Ziel");
+				}
     			
     			//cockpit_std = Integer.parseInt(t5) / 3600;
     			

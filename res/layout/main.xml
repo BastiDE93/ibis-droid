@@ -187,10 +187,8 @@
             android:layout_height="match_parent"
      		android:layout_weight="1"
      		android:gravity="left|center_vertical"
-     		android:background="#FF9933"
-            android:text="Sprech-
-            
-wunsch" >
+     		
+            android:text="Sprech-\r\nwunsch" >
         </Button>
 
         <Button
@@ -199,7 +197,7 @@ wunsch" >
             android:layout_height="match_parent"
             android:layout_weight="1"
         	android:gravity="left|center_vertical"
-        	android:background="#ff0000"
+        	
             android:text="Unfall" >
         </Button>
 
@@ -208,7 +206,7 @@ wunsch" >
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#FF9933"
+            
             android:text="Meldung" >
         </Button>
 
@@ -235,8 +233,7 @@ wunsch" >
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="left|center_vertical"
-            android:text="Linie
-Kurs" >
+            android:text="Linie\r\nKurs" >
 
         </Button>
 
@@ -244,8 +241,9 @@ Kurs" >
             android:id="@+id/ziel"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            
             android:gravity="left|center_vertical"
-            android:text="Ziel" >
+            android:text="Ziel\r\nSonder-\r\nzeichen" >
 
         </Button>
 
@@ -293,7 +291,8 @@ Kurs" >
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Vor" >
+            android:gravity="left|center_vertical"
+            android:text="Vor\r\nStumm" >
         </Button>
 
         <Button
@@ -301,7 +300,8 @@ Kurs" >
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Fort" >
+            android:gravity="left|center_vertical"
+            android:text="Fort\r\nschaltung\r\nHaltestelle" >
         </Button>
 
         <Button
@@ -309,7 +309,8 @@ Kurs" >
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Rück" >
+            android:gravity="left|center_vertical"
+            android:text="Rück\r\nStumm" >
         </Button>
 
         <Button
@@ -317,7 +318,8 @@ Kurs" >
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Fort-" >
+            android:gravity="left|center_vertical"
+            android:text="Fort-\r\nschaltung\r\nStop" >
         </Button>
 
         <Button
@@ -341,7 +343,8 @@ Kurs" >
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Teilzone " >
+            android:gravity="left|center_vertical"
+            android:text="Teilzone\r\nRichtung" >
         </Button>
 
         <Button
@@ -349,6 +352,7 @@ Kurs" >
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            
             android:text="Löschen" >
         </Button>
 
@@ -357,7 +361,8 @@ Kurs" >
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Uhrzeit" >
+            android:gravity="left|center_vertical"
+            android:text="Uhrzeit\r\nDatum\r\n0" >
         </Button>
 
         <Button
@@ -365,9 +370,9 @@ Kurs" >
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#FF00FF"
-
-            android:text="Eingabe" >
+            
+			android:gravity="left|center_vertical"
+            android:text="Eingabe\r\nQuittung" >
         </Button>
     </TableRow>
 
