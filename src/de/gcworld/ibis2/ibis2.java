@@ -13,6 +13,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.StringTokenizer;
 
+import com.bugsense.trace.BugSenseHandler;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,7 +35,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ibis2 extends Activity {
+public class Ibis2 extends Activity {
     /** Called when the activity is first created. */
 	TextView disp_1;
 	TextView disp_2;
@@ -86,8 +88,12 @@ public class ibis2 extends Activity {
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
+    	// The following line triggers the initialization of ACRA
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
+        BugSenseHandler.setup(this, "b4dccaea");
         
         settings_string = PreferenceManager.getDefaultSharedPreferences(this);
     	ip_address = settings_string.getString("ip", "127.0.0.1");
@@ -835,8 +841,9 @@ public class ibis2 extends Activity {
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				result = "Error: " + e1;
+			} catch (NullPointerException e1) {
+				Log.e("IBIS2", "UNABLE: " + e1);
 			}
-			
 			wrun = true;
 			
 			int i = 0;
