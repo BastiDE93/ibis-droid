@@ -53,6 +53,8 @@ public class Ibis2 extends Activity {
 	int maxroute = 0;
 	int maxlinie = 0;
 	int maxziel = 0;
+	double Delay = 0.0;
+	TextView disp_delay;
 	
 	SharedPreferences settings_string;
 	
@@ -107,7 +109,7 @@ public class Ibis2 extends Activity {
         disp_ziel = (TextView)findViewById(R.id.disp_ziel);
         disp_linie = (TextView)findViewById(R.id.disp_linie);
         disp_zone = (TextView)findViewById(R.id.disp_zone);
-        TextView disp_delay = (TextView)findViewById(R.id.delay);
+        disp_delay = (TextView)findViewById(R.id.delay);
         
         //default values
         disp_route.setText("00");
@@ -905,10 +907,23 @@ public class Ibis2 extends Activity {
     		String t5 = tokens.nextToken();
     		String t6 = tokens.nextToken();
     		String t7 = tokens.nextToken();
-    		//String t7 = tokens.nextToken();
+    		String t8 = tokens.nextToken();
     		//String t8 = tokens.nextToken();
     		
     		busstop_code = t7;
+    	
+    		//disp_delay.setText(t8);
+    		if(IBIS_mode == 0) {
+    			if(Double.parseDouble(t8)>0) {
+    				disp_delay.setText("+ ");
+    				disp_delay.append(t8);
+    			}
+    			else {
+    				double temp = Math.abs(Double.parseDouble(t8));
+    				disp_delay.setText("- ");
+    				disp_delay.append(Double.toString(temp));
+    			}
+    		}
     		
     		ziel_code = second;
     		
