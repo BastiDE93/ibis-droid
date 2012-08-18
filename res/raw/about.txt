@@ -1,0 +1,5 @@
+<h3>IBIS droid</h3>
+Version 0.5<br>
+Copyright 2012<br>
+<b>www.gcmods.de</b><br><br>
+info@gcmods.de

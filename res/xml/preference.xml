@@ -10,7 +10,7 @@
     </PreferenceCategory>
    <PreferenceCategory android:title="OMSI Einstellungen">
        <ListPreference android:dialogTitle="Karte auswählen" android:title="Karte" android:key="karten" android:entries="@array/Karten" android:entryValues="@array/KartenValues"/>
-     
+     <ListPreference android:dialogTitle="Währung auswählen" android:title="Währung" android:key="money" android:entries="@array/Money" android:entryValues="@array/MoneyValues"/>
        
        
    </PreferenceCategory>

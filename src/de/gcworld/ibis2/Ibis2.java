@@ -55,6 +55,7 @@ public class Ibis2 extends Activity {
 	int maxziel = 0;
 	double Delay = 0.0;
 	TextView disp_delay;
+	boolean show_cashdesk = false;
 	
 	SharedPreferences settings_string;
 	
@@ -80,8 +81,6 @@ public class Ibis2 extends Activity {
 	
 	//final String IBIS_ROUTE = "IBIS_Route";
 	
-	private static final int SYNC_ID = Menu.FIRST+2;
-	
 	Socket socket;
 	DataInputStream inFromServer;
     DataOutputStream outToServer;
@@ -102,7 +101,14 @@ public class Ibis2 extends Activity {
     	Log.d("IBIS2","IP ist: " + ip_address);
        
         
-        //assign buttons
+       initUI();
+        
+        currentDateTimeString = DateFormat.getDateInstance().format(new Date());
+        
+    }
+    
+    private void initUI() {
+    	//assign buttons
         disp_1 = (TextView)findViewById(R.id.disp_1);
         disp_2 = (TextView)findViewById(R.id.disp_2);
         disp_route = (TextView)findViewById(R.id.disp_route);
@@ -114,10 +120,6 @@ public class Ibis2 extends Activity {
         //default values
         disp_route.setText("00");
         disp_2.setText("");
-        
-        
-        currentDateTimeString = DateFormat.getDateInstance().format(new Date());
-        
         
         Button delete = (Button)findViewById(R.id.delete);
         delete.setOnClickListener(btnListener);
@@ -174,6 +176,178 @@ public class Ibis2 extends Activity {
         n8.setOnClickListener(setN8);
     }
     
+    private void initUICashdesk() {
+    	String money_code = settings_string.getString("Money", "_dm");
+    	
+    	Button cd_1500 = (Button)findViewById(R.id.cd_1500);
+        cd_1500.setOnClickListener(set_cd_1500);
+        cd_1500.setText(getStringResourceByName("cd_1500" + money_code));
+        
+        Button cd_800 = (Button)findViewById(R.id.cd_800);
+        cd_800.setOnClickListener(set_cd_800);
+        cd_800.setText(getStringResourceByName("cd_800" + money_code));
+        
+        Button cd_500 = (Button)findViewById(R.id.cd_500);
+        cd_500.setOnClickListener(set_cd_500);
+        cd_500.setText(getStringResourceByName("cd_500" + money_code));
+        
+        Button cd_400 = (Button)findViewById(R.id.cd_400);
+        cd_400.setOnClickListener(set_cd_400);
+        cd_400.setText(getStringResourceByName("cd_400" + money_code));
+        
+        Button cd_200 = (Button)findViewById(R.id.cd_200);
+        cd_200.setOnClickListener(set_cd_200);
+        cd_200.setText(getStringResourceByName("cd_200" + money_code));
+        
+        Button cd_100 = (Button)findViewById(R.id.cd_100);
+        cd_100.setOnClickListener(set_cd_100);
+        cd_100.setText(getStringResourceByName("cd_100" + money_code));
+        
+        Button cd_150 = (Button)findViewById(R.id.cd_150);
+        cd_150.setOnClickListener(set_cd_150);
+        cd_150.setText(getStringResourceByName("cd_150" + money_code));
+        
+        Button cd_050 = (Button)findViewById(R.id.cd_050);
+        cd_050.setOnClickListener(set_cd_050);
+        cd_050.setText(getStringResourceByName("cd_050" + money_code));
+        
+        Button cd_030 = (Button)findViewById(R.id.cd_030);
+        cd_030.setOnClickListener(set_cd_030);
+        cd_030.setText(getStringResourceByName("cd_030" + money_code));
+        
+        Button cd_015 = (Button)findViewById(R.id.cd_015);
+        cd_015.setOnClickListener(set_cd_015);
+        cd_015.setText(getStringResourceByName("cd_015" + money_code));
+        
+        Button cd_010 = (Button)findViewById(R.id.cd_010);
+        cd_010.setOnClickListener(set_cd_010);
+        cd_010.setText(getStringResourceByName("cd_010" + money_code));
+        
+        Button cd_005 = (Button)findViewById(R.id.cd_005);
+        cd_005.setOnClickListener(set_cd_005);
+        cd_005.setText(getStringResourceByName("cd_005" + money_code));
+    }
+    
+    private OnClickListener set_cd_1500 = new OnClickListener()
+    {
+    	public void onClick(View v)
+    	{
+    		
+    		
+    		new sendText().execute("cd_1500");
+    	}
+    };
+    
+    private OnClickListener set_cd_800 = new OnClickListener()
+    {
+    	public void onClick(View v)
+    	{
+    		
+    		
+    		new sendText().execute("cd_800");
+    	}
+    };
+    
+    private OnClickListener set_cd_500 = new OnClickListener()
+    {
+    	public void onClick(View v)
+    	{
+    		
+    		
+    		new sendText().execute("cd_500");
+    	}
+    };
+    
+    private OnClickListener set_cd_400 = new OnClickListener()
+    {
+    	public void onClick(View v)
+    	{
+    		
+    		
+    		new sendText().execute("cd_400");
+    	}
+    };
+    
+    private OnClickListener set_cd_200 = new OnClickListener()
+    {
+    	public void onClick(View v)
+    	{
+    		
+    		
+    		new sendText().execute("cd_200");
+    	}
+    };
+    
+    private OnClickListener set_cd_150 = new OnClickListener()
+    {
+    	public void onClick(View v)
+    	{
+    		
+    		
+    		new sendText().execute("cd_150");
+    	}
+    };
+    
+    private OnClickListener set_cd_100 = new OnClickListener()
+    {
+    	public void onClick(View v)
+    	{
+    		
+    		
+    		new sendText().execute("cd_100");
+    	}
+    };
+    
+    private OnClickListener set_cd_050 = new OnClickListener()
+    {
+    	public void onClick(View v)
+    	{
+    		
+    		
+    		new sendText().execute("cd_050");
+    	}
+    };
+    
+    private OnClickListener set_cd_030 = new OnClickListener()
+    {
+    	public void onClick(View v)
+    	{
+    		
+    		
+    		new sendText().execute("cd_030");
+    	}
+    };
+    
+    private OnClickListener set_cd_015 = new OnClickListener()
+    {
+    	public void onClick(View v)
+    	{
+    		
+    		
+    		new sendText().execute("cd_015");
+    	}
+    };
+    
+    private OnClickListener set_cd_010 = new OnClickListener()
+    {
+    	public void onClick(View v)
+    	{
+    		
+    		
+    		new sendText().execute("cd_010");
+    	}
+    };
+    
+    private OnClickListener set_cd_005 = new OnClickListener()
+    {
+    	public void onClick(View v)
+    	{
+    		
+    		
+    		new sendText().execute("cd_005");
+    	}
+    };
+    
     public boolean onCreateOptionsMenu(Menu menu) {
 		
 		super.onCreateOptionsMenu(menu);
@@ -196,14 +370,30 @@ public class Ibis2 extends Activity {
 				Log.e("IBIS2", "Error closing Socket: " + e);
 			} 
 			return(true);
-		case SYNC_ID: 
-			//connect("http://www.gcworld.de/test.xml");
-			//connect("http://gcworld.highrisehq.com/people.xml"); 
+		case R.id.cashdesk: 
+			if(!show_cashdesk) {
+				setContentView(R.layout.ibis_cashdesk);
+				initUI();
+				initUICashdesk();
+		        show_cashdesk = true;
+			}
+			else {
+	        setContentView(R.layout.main);
+	        initUI();
+	        show_cashdesk = false;
+			}
+
 			return(true);
 		case R.id.settings:
 		
 			Log.d("IBIS2", "Starting Preferences");
 			startActivity(new Intent(this, Settings.class));
+			return(true);
+			
+		case R.id.about:
+			AboutDialog about = new AboutDialog(this);
+			about.setTitle("about this app");
+			about.show();
 			return(true);
 			
 		case R.id.connect:
