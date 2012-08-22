@@ -3,4 +3,16 @@
     <string name="n1">1</string>
     <string name="app_name">IBIS Droid</string>
     <string name="hello">Hallo</string>
+    <string name="logo_description">gcWorld Modifications Logo</string>
+    <string name="about">Info</string>
+    <string name="connect">Verbinden</string>
+    <string name="cashdesk">Zahltisch</string>
+    <string name="ip_address">IP Adresse</string>
+    <string name="ip_of_pc">IP Adresse des OMSI PCs</string>
+    <string name="settings">Einstellungen</string>
+    <string name="omsi_settings">OMSI Einstellungen</string>
+    <string name="choose_map">Karte auswählen</string>
+    <string name="map">Karte</string>
+    <string name="choose_currency">Währung auswählen</string>
+    <string name="currency">Währung</string>
 </resources>

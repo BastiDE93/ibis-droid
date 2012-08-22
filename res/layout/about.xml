@@ -10,7 +10,7 @@ android:layout_width="fill_parent"
 android:layout_height="fill_parent"
 android:src="@drawable/gcmods_logo"
 android:layout_gravity="center|center"
-android:contentDescription="gcWorld Modifications Logo"/>
+android:contentDescription="@string/logo_description"/>
 <TextView
 android:id="@+id/info_text"
 android:gravity="center"

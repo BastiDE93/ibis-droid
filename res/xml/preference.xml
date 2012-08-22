@@ -2,15 +2,15 @@
 <PreferenceScreen
   xmlns:android="http://schemas.android.com/apk/res/android">
   <PreferenceCategory
-            android:title="Einstellungen">
+            android:title="@string/settings">
 
 		<EditTextPreference
-				android:title="IP Adresse"
-				android:summary="IP Adresse des OMSI PCs" android:key="ip" android:enabled="true"/>
+				android:title="@string/ip_address"
+				android:summary="@string/ip_of_pc" android:key="ip" android:enabled="true"/>
     </PreferenceCategory>
-   <PreferenceCategory android:title="OMSI Einstellungen">
-       <ListPreference android:dialogTitle="Karte auswählen" android:title="Karte" android:key="karten" android:entries="@array/Karten" android:entryValues="@array/KartenValues"/>
-     <ListPreference android:dialogTitle="Währung auswählen" android:title="Währung" android:key="money" android:entries="@array/Money" android:entryValues="@array/MoneyValues"/>
+   <PreferenceCategory android:title="@string/omsi_settings">
+       <ListPreference android:dialogTitle="@string/choose_map" android:title="@string/map" android:key="karten" android:entries="@array/Karten" android:entryValues="@array/KartenValues"/>
+     <ListPreference android:dialogTitle="@string/choose_currency" android:title="@string/currency" android:key="money" android:entries="@array/Money" android:entryValues="@array/MoneyValues"/>
        
        
    </PreferenceCategory>
