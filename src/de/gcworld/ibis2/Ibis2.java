@@ -15,6 +15,7 @@ import java.util.StringTokenizer;
 
 import com.bugsense.trace.BugSenseHandler;
 
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,6 +25,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -56,6 +58,7 @@ public class Ibis2 extends Activity {
 	double Delay = 0.0;
 	TextView disp_delay;
 	boolean show_cashdesk = false;
+	boolean show_ticketprinter = false;
 	
 	SharedPreferences settings_string;
 	
@@ -352,7 +355,13 @@ public class Ibis2 extends Activity {
 		
 		super.onCreateOptionsMenu(menu);
         MenuInflater mi = getMenuInflater();
-        mi.inflate(R.menu.menu, menu);
+        if (isTabletDevice(this)) {
+			
+        	mi.inflate(R.menu.menu, menu);
+		} else {
+		    // Do something different to support older versions
+			mi.inflate(R.menu.menu_smart, menu);
+		}
 		
 		return(true);
 		}
@@ -370,20 +379,61 @@ public class Ibis2 extends Activity {
 				Log.e("IBIS2", "Error closing Socket: " + e);
 			} 
 			return(true);
+	
 		case R.id.cashdesk: 
-			if(!show_cashdesk) {
-				setContentView(R.layout.ibis_cashdesk);
-				initUI();
-				initUICashdesk();
-		        show_cashdesk = true;
-			}
-			else {
-	        setContentView(R.layout.main);
-	        initUI();
-	        show_cashdesk = false;
+			if (isTabletDevice(this)) {
+				if(!show_cashdesk) {
+					
+					setContentView(R.layout.ibis_cashdesk);
+					initUI();
+					initUICashdesk();
+			        show_cashdesk = true;
+				}
+				else {
+		        setContentView(R.layout.main);
+		        initUI();
+		        show_cashdesk = false;
+				}
+			} else {
+			    // Do something different to support older versions
+				if(!show_cashdesk) {
+					
+					setContentView(R.layout.cashdesk);
+					initUI();
+					initUICashdesk();
+			        show_cashdesk = true;
+				}
+				else {
+		        setContentView(R.layout.main);
+		        initUI();
+		        show_cashdesk = false;
+				}
 			}
 
 			return(true);
+			
+		case R.id.ticketprinter:
+			if (isTabletDevice(this)) {
+				//not needed on big screen devices
+			} else {
+			    // Do something different to support older versions
+				if(!show_ticketprinter) {
+					
+					setContentView(R.layout.ticketprinter);
+					initUI();
+					initUICashdesk();
+			        show_ticketprinter = true;
+				}
+				else {
+		        setContentView(R.layout.main);
+		        initUI();
+		        show_ticketprinter = false;
+				}
+			}
+
+			return(true);
+			
+			
 		case R.id.settings:
 		
 			Log.d("IBIS2", "Starting Preferences");
@@ -1249,5 +1299,44 @@ public class Ibis2 extends Activity {
         }
         return false;
     }
+ 
     
+    /**
+     * Checks if the device is a tablet or a phone
+     * 
+     * Obtained from Stackoverflow
+     * http://stackoverflow.com/questions/5832368/tablet-or-phone-android
+     * 
+     * @param activityContext
+     *            The Activity Context.
+     * @return Returns true if the device is a Tablet
+     */
+    public static boolean isTabletDevice(Context activityContext) {
+        // Verifies if the Generalized Size of the device is XLARGE to be
+        // considered a Tablet
+    	boolean tablet = false;
+        boolean xlarge = ((activityContext.getResources().getConfiguration().screenLayout & 
+                            Configuration.SCREENLAYOUT_SIZE_MASK) == 
+                            Configuration.SCREENLAYOUT_SIZE_XLARGE);
+
+        // If XLarge, checks if the Generalized Density is at least MDPI
+        // (160dpi)
+        if (xlarge) {
+            DisplayMetrics metrics = new DisplayMetrics();
+            Activity activity = (Activity) activityContext;
+            activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+            // MDPI=160, DEFAULT=160, DENSITY_HIGH=240, DENSITY_MEDIUM=160,
+            // DENSITY_TV=213, DENSITY_XHIGH=320
+            if (metrics.densityDpi == DisplayMetrics.DENSITY_DEFAULT
+                    || metrics.densityDpi == DisplayMetrics.DENSITY_HIGH
+                    || metrics.densityDpi == DisplayMetrics.DENSITY_MEDIUM
+                    || metrics.densityDpi == DisplayMetrics.DENSITY_XHIGH) {
+
+                // Yes, this is a tablet!
+                tablet = true;
+            }
+        }
+		return tablet;
+    }
 }

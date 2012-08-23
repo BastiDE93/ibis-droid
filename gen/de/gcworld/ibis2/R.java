@@ -127,17 +127,21 @@ public final class R {
         public static final int textView1=0x7f0a002a;
         public static final int textView4=0x7f0a000e;
         public static final int textView7=0x7f0a0063;
+        public static final int ticketprinter=0x7f0a0069;
         public static final int vor=0x7f0a0020;
         public static final int vor_stumm=0x7f0a001f;
         public static final int ziel=0x7f0a001a;
     }
     public static final class layout {
         public static final int about=0x7f030000;
-        public static final int ibis_cashdesk=0x7f030001;
-        public static final int main=0x7f030002;
+        public static final int cashdesk=0x7f030001;
+        public static final int ibis_cashdesk=0x7f030002;
+        public static final int main=0x7f030003;
+        public static final int ticketprinter=0x7f030004;
     }
     public static final class menu {
         public static final int menu=0x7f090000;
+        public static final int menu_smart=0x7f090001;
     }
     public static final class raw {
         public static final int about=0x7f050000;
@@ -159,6 +163,7 @@ public final class R {
         public static final int a107b4=0x7f060048;
         public static final int a107b5=0x7f060049;
         public static final int a107b6=0x7f06004a;
+        public static final int about=0x7f060067;
         public static final int app_name=0x7f060065;
         public static final int b0b0=0x7f06003c;
         public static final int b210b0=0x7f06002d;
@@ -221,6 +226,7 @@ public final class R {
         public static final int b81b59=0x7f060009;
         public static final int b81b6=0x7f060004;
         public static final int b81b9=0x7f060012;
+        public static final int cashdesk=0x7f060069;
         public static final int cd_005_dm=0x7f060057;
         public static final int cd_005_euro=0x7f060063;
         public static final int cd_010_dm=0x7f060056;
@@ -245,9 +251,19 @@ public final class R {
         public static final int cd_500_euro=0x7f06005a;
         public static final int cd_800_dm=0x7f06004d;
         public static final int cd_800_euro=0x7f060059;
+        public static final int choose_currency=0x7f060071;
+        public static final int choose_map=0x7f06006f;
+        public static final int connect=0x7f060068;
+        public static final int currency=0x7f060072;
         public static final int hello=0x7f060064;
-        public static final int ip=0x7f060067;
-        public static final int n1=0x7f060066;
+        public static final int ip_address=0x7f06006b;
+        public static final int ip_of_pc=0x7f06006c;
+        public static final int logo_description=0x7f060066;
+        public static final int map=0x7f060070;
+        public static final int n1=0x7f060073;
+        public static final int omsi_settings=0x7f06006e;
+        public static final int settings=0x7f06006d;
+        public static final int ticketprinter=0x7f06006a;
     }
     public static final class xml {
         public static final int preference=0x7f040000;
