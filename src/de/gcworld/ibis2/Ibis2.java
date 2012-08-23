@@ -231,6 +231,10 @@ public class Ibis2 extends Activity {
         cd_005.setText(getStringResourceByName("cd_005" + money_code));
     }
     
+    private void InitUITicketprinter() {
+    	
+    }
+    
     private OnClickListener set_cd_1500 = new OnClickListener()
     {
     	public void onClick(View v)
@@ -387,6 +391,7 @@ public class Ibis2 extends Activity {
 					setContentView(R.layout.ibis_cashdesk);
 					initUI();
 					initUICashdesk();
+					InitUITicketprinter();
 			        show_cashdesk = true;
 				}
 				else {
@@ -399,9 +404,11 @@ public class Ibis2 extends Activity {
 				if(!show_cashdesk) {
 					
 					setContentView(R.layout.cashdesk);
-					initUI();
+					//initUI();
 					initUICashdesk();
+					InitUITicketprinter();
 			        show_cashdesk = true;
+			        show_ticketprinter = false;
 				}
 				else {
 		        setContentView(R.layout.main);
@@ -420,9 +427,10 @@ public class Ibis2 extends Activity {
 				if(!show_ticketprinter) {
 					
 					setContentView(R.layout.ticketprinter);
-					initUI();
-					initUICashdesk();
+					//initUI();
+					InitUITicketprinter();
 			        show_ticketprinter = true;
+			        show_cashdesk = false;
 				}
 				else {
 		        setContentView(R.layout.main);
