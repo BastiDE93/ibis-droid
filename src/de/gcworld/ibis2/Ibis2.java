@@ -99,6 +99,9 @@ public class Ibis2 extends Activity {
         
         BugSenseHandler.setup(this, "b4dccaea");
         
+        //keep screen on
+        getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        
         settings_string = PreferenceManager.getDefaultSharedPreferences(this);
     	ip_address = settings_string.getString("ip", "127.0.0.1");
     	Log.d("IBIS2","IP ist: " + ip_address);
@@ -467,6 +470,9 @@ public class Ibis2 extends Activity {
     
     private void close() throws IOException {
 			// TODO Auto-generated method stub
+    	getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+    	
     		socket.close();
     		finish(); 
 		}
@@ -1015,6 +1021,8 @@ public class Ibis2 extends Activity {
     public void onDestroy()
     {
 		super.onDestroy();
+		getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
     	wrun = false;
     	try {
 			if(socket_av) {
