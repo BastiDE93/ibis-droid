@@ -2,4 +2,6 @@
 <resources>
     <dimen name="Cashdesk_Text_Size">50dp</dimen>
     <dimen name="padding">20dp</dimen>
+    <dimen name="Cashdesk_Text_Size_sp">25dp</dimen>
+    <dimen name="Cashdesk_Text_Size_sp_klein">15dp</dimen>
 </resources>

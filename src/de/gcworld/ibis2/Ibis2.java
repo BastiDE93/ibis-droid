@@ -1025,6 +1025,12 @@ public class Ibis2 extends Activity {
 
     	wrun = false;
     	try {
+			Thread.sleep(500);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			Log.d("IBIS","Interrupted Exception");
+		}
+    	try {
 			if(socket_av) {
 			socket.close();}
 		} catch (IOException e) {
@@ -1090,10 +1096,8 @@ public class Ibis2 extends Activity {
 				//inFromServer = new DataInputStream(socket.getInputStream()); 
 				in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				socket_av = true;
-				outToServer.writeBytes("Hello World");
-				outToServer.flush();
-			
-			} catch (UnknownHostException e1) {
+				
+        	} catch (UnknownHostException e1) {
 				// TODO Auto-generated catch block
 				result = "Error: " + e1;
 			} catch (IOException e1) {
@@ -1102,7 +1106,25 @@ public class Ibis2 extends Activity {
 			} catch (NullPointerException e1) {
 				Log.e("IBIS2", "UNABLE: " + e1);
 			}
-			wrun = true;
+				
+				try {
+					if(socket.isConnected()) {
+						
+				
+					outToServer.writeBytes("Hello World");
+					outToServer.flush();
+					wrun = true;
+					}
+					else {
+						Log.d("IBIS2", "Connection not established");
+						wrun = false;
+					}
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					result = "Error: " + e1;
+				}
+				
+			
 			
 			int i = 0;
 			while(wrun) {
@@ -1300,7 +1322,7 @@ public class Ibis2 extends Activity {
 
 		@Override
         protected void onPostExecute(String result) {
-            toast(result);
+            Log.d("IBIS2", result);
             socket_av = false;
             Log.i("IBIS2", "ending socket connection");
         }
