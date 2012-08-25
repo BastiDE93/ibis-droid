@@ -948,7 +948,7 @@ public class Ibis2 extends Activity {
 			String text = Strings[0];
 			// TODO check whether Socket is actually connected
 			String result;
-			if (socket_av || socket.isConnected()) {
+			if (socket_av) {
 
 				try {
 					outToServer.writeBytes(text);
@@ -999,16 +999,20 @@ public class Ibis2 extends Activity {
 
 				} catch (UnknownHostException e1) {
 					// TODO Auto-generated catch block
-					result = "Error: " + e1;
+					Log.e("IBIS2", "Error: " + e1);
+					//result="connection_failed";
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
-					result = "Error: " + e1;
+					Log.e("IBIS2", "Error: " + e1);
+					//result="connection_failed";
 				} catch (NullPointerException e1) {
 					Log.e("IBIS2", "UNABLE: " + e1);
 				}
+				
+				Log.d("IBIS2", "Socket state:" + socket);
 
 				try {
-					if (socket.isConnected()) {
+					if (socket!=null && socket.isConnected()) {
 
 						outToServer.writeBytes("Hello World");
 						outToServer.flush();
@@ -1040,6 +1044,7 @@ public class Ibis2 extends Activity {
 
 					} else {
 						Log.d("IBIS2", "Connection not established");
+						
 						wrun = false;
 					}
 				} catch (IOException e1) {
@@ -1244,6 +1249,23 @@ public class Ibis2 extends Activity {
 		protected void onPostExecute(String result) {
 			Log.d("IBIS2", result);
 
+			if (result == "No Connection") {
+				AlertDialog.Builder builder = new AlertDialog.Builder(
+						Ibis2.this);
+				builder.setMessage(getStringResourceByName("connection_failed"))
+				.setCancelable(false)
+				.setNegativeButton(getStringResourceByName("ok"),
+						new DialogInterface.OnClickListener() {
+
+							public void onClick(DialogInterface dialog,
+									int id) {
+								dialog.cancel();
+							}
+						});
+		AlertDialog alertDialog = builder.create();
+		alertDialog.show();
+			}
+			
 			if (result == "no_wifi") {
 				final WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 				AlertDialog.Builder builder = new AlertDialog.Builder(

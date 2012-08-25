@@ -11,6 +11,8 @@
     <string name="no_wifi">Bitte Wlan aktivieren</string>
     <string name="yes">Aktivieren</string>
     <string name="no">Abbrechen</string>
+    <string name="ok">OK</string>
+    <string name="connection_failed">Die Verbindung zum Server ist fehlgeschlagen</string>
     
     <string name="ticketprinter">Ticketdrucker</string>
     <string name="ip_address">IP Adresse</string>

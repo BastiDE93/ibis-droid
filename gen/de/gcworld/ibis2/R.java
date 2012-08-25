@@ -253,19 +253,24 @@ public final class R {
         public static final int cd_500_euro=0x7f06005a;
         public static final int cd_800_dm=0x7f06004d;
         public static final int cd_800_euro=0x7f060059;
-        public static final int choose_currency=0x7f060071;
-        public static final int choose_map=0x7f06006f;
+        public static final int choose_currency=0x7f060076;
+        public static final int choose_map=0x7f060074;
         public static final int connect=0x7f060068;
-        public static final int currency=0x7f060072;
+        public static final int connection_failed=0x7f06006f;
+        public static final int currency=0x7f060077;
         public static final int hello=0x7f060064;
-        public static final int ip_address=0x7f06006b;
-        public static final int ip_of_pc=0x7f06006c;
+        public static final int ip_address=0x7f060070;
+        public static final int ip_of_pc=0x7f060071;
         public static final int logo_description=0x7f060066;
-        public static final int map=0x7f060070;
-        public static final int n1=0x7f060073;
-        public static final int omsi_settings=0x7f06006e;
-        public static final int settings=0x7f06006d;
+        public static final int map=0x7f060075;
+        public static final int n1=0x7f060078;
+        public static final int no=0x7f06006d;
+        public static final int no_wifi=0x7f06006b;
+        public static final int ok=0x7f06006e;
+        public static final int omsi_settings=0x7f060073;
+        public static final int settings=0x7f060072;
         public static final int ticketprinter=0x7f06006a;
+        public static final int yes=0x7f06006c;
     }
     public static final class xml {
         public static final int preference=0x7f040000;
