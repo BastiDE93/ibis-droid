@@ -14,4 +14,11 @@
        
        
    </PreferenceCategory>
+   <PreferenceCategory
+            android:title="S">
+
+		<EditTextPreference
+				android:title="Code"
+				android:key="Code" android:enabled="true"/>
+    </PreferenceCategory>
 </PreferenceScreen>

@@ -122,14 +122,15 @@
         </TextView>
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/richtung"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="B"
             android:layout_span="1"
             android:layout_weight="1"
-            android:textSize="30dp"
-            android:textAppearance="?android:attr/textAppearanceLarge" >
+            android:text="B"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="30dp" >
+
         </TextView>
 
         <TextView

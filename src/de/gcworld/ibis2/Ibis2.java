@@ -36,6 +36,7 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Debug;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -51,6 +52,7 @@ public class Ibis2 extends Activity {
 	TextView disp_ziel;
 	TextView disp_linie;
 	TextView disp_zone;
+	TextView disp_richtung;
 	String omsi_date;
 	String route_n;
 	int cockpit_std;
@@ -138,6 +140,7 @@ public class Ibis2 extends Activity {
 		disp_linie = (TextView) findViewById(R.id.disp_linie);
 		disp_zone = (TextView) findViewById(R.id.disp_zone);
 		disp_delay = (TextView) findViewById(R.id.delay);
+		disp_richtung = (TextView) findViewById(R.id.richtung);
 
 		// default values
 		disp_route.setText("00");
@@ -199,7 +202,9 @@ public class Ibis2 extends Activity {
 	}
 
 	private void initUICashdesk() {
-		String money_code = settings_string.getString("Money", "_dm");
+		String money_code = settings_string.getString("money", "_dm");
+		
+		Log.d("IBIS2", "Money: " + money_code);
 
 		Button cd_1500 = (Button) findViewById(R.id.cd_1500);
 		cd_1500.setOnClickListener(set_cd_1500);
@@ -553,7 +558,14 @@ public class Ibis2 extends Activity {
 		String karten_code = settings_string.getString("karten", "a");
 		String tmp_ziel = getStringResourceByName(karten_code + ziel_code + "b"
 				+ busstop_code);
-		if (tmp_ziel == null) {
+		Log.d("IBIS2", "Kartencode: " + tmp_ziel);
+		if(karten_code.equals("a")||karten_code.equals("b")) {
+			if(ziel_code.equals("13")) {
+				tmp_ziel = "Betriebsfahrt";
+			}
+			
+		}
+		if (tmp_ziel.equals("")) {
 			tmp_ziel = karten_code + ziel_code + "b" + busstop_code;
 		}
 		disp_1.setText(tmp_ziel);
@@ -570,7 +582,7 @@ public class Ibis2 extends Activity {
 		String packageName = "de.gcworld.ibis2";
 		int resId = getResources()
 				.getIdentifier(aString, "string", packageName);
-		Log.d("IBIS2", "Resource ID:" + resId);
+		//Log.d("IBIS2", "Resource ID:" + resId);
 		if (resId == 0) {
 			resId = getResources().getIdentifier("a0b0", "string", packageName);
 		}
@@ -1018,30 +1030,6 @@ public class Ibis2 extends Activity {
 						outToServer.flush();
 						wrun = true;
 
-						String ns = Context.NOTIFICATION_SERVICE;
-						NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
-
-						int icon = R.drawable.gcmods_logo;
-						CharSequence tickerText = "Connected";
-						long when = System.currentTimeMillis();
-
-						Notification notification = new Notification(icon,
-								tickerText, when);
-
-						// Context context = getApplicationContext();
-						CharSequence contentTitle = "IBIS droid";
-						CharSequence contentText = "Hello World!";
-						Intent notificationIntent = new Intent(context,
-								Ibis2.class);
-						PendingIntent contentIntent = PendingIntent
-								.getActivity(context, 0, notificationIntent, 0);
-
-						notification.setLatestEventInfo(context, contentTitle,
-								contentText, contentIntent);
-
-						final int HELLO_ID = 1;
-						mNotificationManager.notify(HELLO_ID, notification);
-
 					} else {
 						Log.d("IBIS2", "Connection not established");
 						
@@ -1065,7 +1053,7 @@ public class Ibis2 extends Activity {
 						outToServer.writeBytes("Hello World");
 						outToServer.flush();
 
-						Log.i("IBIS2", "listening");
+						//Log.i("IBIS2", "listening");
 						answer = in.readLine();
 
 						if (answer == "") {
@@ -1081,7 +1069,7 @@ public class Ibis2 extends Activity {
 						if (answer != null) {
 							// wrun = false;
 							publishProgress(answer);
-							Log.i("IBIS2", "got something");
+							//Log.i("IBIS2", "got something");
 						}
 						result = answer;
 					} catch (IOException e) {
@@ -1129,9 +1117,15 @@ public class Ibis2 extends Activity {
 					disp_delay.setText("+ ");
 					disp_delay.append(t8);
 				} else {
+					if(Double.parseDouble(t8) == 0) {
+						disp_delay.setText("  ");
+						disp_delay.append(t8);
+					}
+					else {
 					double temp = Math.abs(Double.parseDouble(t8));
 					disp_delay.setText("- ");
 					disp_delay.append(Double.toString(temp));
+					}
 				}
 			}
 
@@ -1143,10 +1137,20 @@ public class Ibis2 extends Activity {
 
 			disp_zone.setText(t6);
 
-			if (Integer.parseInt(first) < 10) {
+			int route = Integer.parseInt(first);
+			
+			if (route < 10) {
 				disp_route.setText("0" + first);
 			} else {
 				disp_route.setText(first);
+			}
+			
+			float tmp = route % 2;
+			if(tmp>0.5) {
+				disp_richtung.setText("A");
+			}
+			else {
+				disp_richtung.setText("B");
 			}
 
 			// if(0==third.compareToIgnoreCase("IBIS_Ziel")) {
@@ -1302,6 +1306,11 @@ public class Ibis2 extends Activity {
 		if (netInfo != null && netInfo.isConnected()) {
 			return true;
 		}
+		/*String check_wifi = settings_string.getString("Code", "false");
+		Log.d("IBIS2", "check_wifi: " +check_wifi);
+		if (check_wifi.equals("true")) {
+			return true;
+		}*/
 		return false;
 	}
 
