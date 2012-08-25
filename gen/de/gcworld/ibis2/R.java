@@ -18,6 +18,8 @@ public final class R {
     }
     public static final class dimen {
         public static final int Cashdesk_Text_Size=0x7f080000;
+        public static final int Cashdesk_Text_Size_sp=0x7f080002;
+        public static final int Cashdesk_Text_Size_sp_klein=0x7f080003;
         public static final int padding=0x7f080001;
     }
     public static final class drawable {

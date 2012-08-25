@@ -22,6 +22,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -1114,6 +1116,11 @@ public class Ibis2 extends Activity {
 					outToServer.writeBytes("Hello World");
 					outToServer.flush();
 					wrun = true;
+					
+					Notification notification = new Notification(R.drawable.gcmods_logo, getString(R.string.app_name), System.currentTimeMillis());
+					notification.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
+					NotificationManager notifier = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+					notifier.notify(1, notification);
 					}
 					else {
 						Log.d("IBIS2", "Connection not established");
@@ -1128,8 +1135,9 @@ public class Ibis2 extends Activity {
 			
 			int i = 0;
 			while(wrun) {
-				if(isCancelled()) {
+				if(isCancelled()||!socket.isConnected()) {
 					wrun = false;
+					((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).cancel(1);
 					break;
 				}
 				try {
