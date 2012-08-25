@@ -7,6 +7,9 @@
     <string name="connect">Connect</string>
     <string name="cashdesk">Cashdesk</string>
     <string name="ticketprinter">Ticketprinter</string>
+    <string name="no_wifi">Please activate WIFI connection</string>
+    <string name="yes">Enable</string>
+    <string name="no">Cancel</string>
     
         <string name="ip_address">IP address</string>
     <string name="ip_of_pc">IP address of PC running OMSI</string>

@@ -7,6 +7,11 @@
     <string name="about">Info</string>
     <string name="connect">Verbinden</string>
     <string name="cashdesk">Zahltisch</string>
+    
+    <string name="no_wifi">Bitte Wlan aktivieren</string>
+    <string name="yes">Aktivieren</string>
+    <string name="no">Abbrechen</string>
+    
     <string name="ticketprinter">Ticketdrucker</string>
     <string name="ip_address">IP Adresse</string>
     <string name="ip_of_pc">IP Adresse des OMSI PCs</string>
