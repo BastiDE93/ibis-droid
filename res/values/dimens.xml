@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="Cashdesk_Text_Size">50dp</dimen>
-    <dimen name="padding">20dp</dimen>
-    <dimen name="Cashdesk_Text_Size_sp">20dp</dimen>
-    <dimen name="Cashdesk_Text_Size_sp_klein">15dp</dimen>
-</resources>
